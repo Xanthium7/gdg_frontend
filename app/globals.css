@@ -2,26 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 180 67% 95%;
+    --foreground: 196 67% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 196 67% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 196 67% 8%;
+
+    --primary: 180 20% 38%;
+    --primary-foreground: 180 67% 95%;
+
+    --secondary: 180 24% 63%;
+    --secondary-foreground: 196 67% 8%;
+
+    --muted: 180 10% 85%;
+    --muted-foreground: 180 5% 45%;
+
+    --accent: 180 24% 63%;
+    --accent-foreground: 196 67% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 180 67% 95%;
+
+    --border: 180 20% 80%;
+    --input: 180 20% 80%;
+    --ring: 180 20% 38%;
+
+    --radius: 1.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-teal-lightest text-teal-darkest;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar for better visibility */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #d0d6d6;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4c7273;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #042630;
+  }
+
+  /* Malayalam font support */
+  .font-ml-ttrevathi {
+    font-family: var(--font-malayalam), Arial, sans-serif;
+    /* Removed RTL-specific styles */
+  }
+
+  /* Remove the RTL direction setting */
+  /* [dir="rtl"] {
+    text-align: left;
+  } */
+}
+
+@layer components {
+  .teal-gradient {
+    background: linear-gradient(135deg, #042630 0%, #4c7273 100%);
+  }
+
+  .bubble-shadow {
+    box-shadow: 0 10px 25px -5px rgba(0, 128, 128, 0.1), 
+                0 8px 10px -6px rgba(0, 128, 128, 0.1);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
+
+/* Add Malayalam text normalization */
+.font-ml-ttrevathi {
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
