@@ -55,9 +55,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ type: "spring", stiffness: 120, damping: 15 }}
       className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 w-full`}
     >
       <div
@@ -65,7 +65,11 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           isUser ? "flex-row-reverse" : "flex-row"
         }`}
       >
-        <div
+        {/* Avatar */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1 }}
           className={`
           flex-shrink-0 h-12 w-12 rounded-full flex items-center justify-center
           ${
@@ -80,9 +84,13 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           ) : (
             <Bot size={24} className="text-teal-dark" />
           )}
-        </div>
+        </motion.div>
 
-        <div
+        {/* Message bubble */}
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2 }}
           className={`
           py-4 px-6 rounded-3xl bubble-shadow overflow-hidden
           ${
@@ -93,7 +101,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           ${isMalayalam ? "font-ml-ttrevathi" : ""}
         `}
         >
-          {/* Removed dir attribute and text-right class */}
+          {/* Message text */}
           <p className="text-lg whitespace-pre-wrap break-words">
             {message.content}
           </p>
@@ -121,7 +129,12 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
           {/* Highlighted section for document requirements */}
           {documentRequirements && (
-            <div className="mt-4 bg-white rounded-2xl p-4 border border-teal-light">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="mt-4 bg-white rounded-2xl p-4 border border-teal-light"
+            >
               <h4 className="font-medium text-teal-dark mb-2 font-ml-ttrevathi">
                 ആവശ്യമായ രേഖകൾ:
               </h4>
@@ -130,9 +143,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                   <li key={index}>{doc.replace(/^[•\-]+/, "").trim()}</li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );

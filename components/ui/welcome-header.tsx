@@ -3,8 +3,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { HelpCircle, Landmark, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function WelcomeHeader() {
+  const [showHelp, setShowHelp] = useState(false);
+
   // Animation variants for staggered animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -48,6 +52,10 @@ export default function WelcomeHeader() {
       repeatType: "reverse" as const,
       ease: "easeInOut",
     },
+  };
+
+  const toggleHelp = () => {
+    setShowHelp(!showHelp);
   };
 
   return (
@@ -117,6 +125,8 @@ export default function WelcomeHeader() {
                 className="bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors"
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}
+                onClick={toggleHelp}
+                aria-label="Show help"
               >
                 <HelpCircle size={20} className="text-white" />
               </motion.button>
@@ -124,16 +134,21 @@ export default function WelcomeHeader() {
                 className="bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors"
                 whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.1 }}
+                aria-label="Contact support"
               >
                 <Headphones size={20} className="text-white" />
               </motion.button>
             </motion.div>
           </div>
 
+          {/* Help info section */}
           <motion.div
-            className="mt-3 sm:mt-4 bg-white/10 p-3 sm:p-4 rounded-xl backdrop-blur-sm"
+            className={`mt-3 sm:mt-4 bg-white/10 p-3 sm:p-4 rounded-xl backdrop-blur-sm ${
+              !showHelp && "h-0 p-0 mt-0 overflow-hidden"
+            }`}
+            animate={showHelp ? "visible" : "hidden"}
             variants={bubbleVariants}
-            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+            initial={false}
           >
             <div className="flex items-start sm:items-center gap-2 sm:gap-3">
               <HelpCircle className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 mt-1 sm:mt-0" />
@@ -145,6 +160,27 @@ export default function WelcomeHeader() {
                 <p className="text-xs sm:text-sm text-white/75 mt-1">
                   Ask me about documents, applications, benefits, or any
                   government service you need help with.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Always visible info section */}
+          <motion.div
+            className="mt-3 sm:mt-4 bg-white/10 p-3 sm:p-4 rounded-xl backdrop-blur-sm"
+            variants={bubbleVariants}
+            whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+          >
+            <div className="flex items-start sm:items-center gap-2 sm:gap-3">
+              <HelpCircle className="h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 mt-1 sm:mt-0" />
+              <div>
+                <p className="text-sm sm:text-base font-ml-ttrevathi">
+                  എന്റെ സഹായത്തിന് ചുവടെയുള്ള ടെക്സ്റ്റ് ഫീൽഡിൽ സർക്കാർ
+                  സേവനങ്ങളെക്കുറിച്ചുള്ള നിങ്ങളുടെ ചോദ്യങ്ങൾ ചോദിക്കുക.
+                </p>
+                <p className="text-xs sm:text-sm text-white/75 mt-1">
+                  Type your government service questions in the text field below
+                  to get assistance.
                 </p>
               </div>
             </div>

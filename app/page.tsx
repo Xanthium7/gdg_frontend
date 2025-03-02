@@ -6,8 +6,8 @@ import { Send, HelpCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import ChatMessage from "@/components/chat-message";
-import WelcomeHeader from "@/components/welcome-header";
+import ChatMessage from "@/components/ui/chat-message";
+import WelcomeHeader from "@/components/ui/welcome-header";
 import {
   Tooltip,
   TooltipContent,
