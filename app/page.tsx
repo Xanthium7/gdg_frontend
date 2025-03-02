@@ -108,7 +108,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white">
+    <main className="flex min-h-screen overflow-y-hidden flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white">
       <div className="w-full max-w-5xl mx-auto flex flex-col h-screen">
         <WelcomeHeader />
 
@@ -214,75 +214,81 @@ export default function Home() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <form
-                onSubmit={handleSubmit}
-                className="p-2 sm:p-4 border-t border-teal-lightest"
-              >
-                <div className="flex space-x-2">
-                  <div className="relative flex-1">
-                    <Textarea
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      placeholder="നിങ്ങളുടെ ചോദ്യം ഇവിടെ ടൈപ്പ് ചെയ്യുക..."
-                      className="flex-1 resize-none text-base sm:text-lg p-3 pr-10 sm:p-4 sm:pr-12 rounded-2xl min-h-[60px] sm:min-h-[80px] border-teal-light focus-visible:ring-teal-medium font-ml-ttrevathi"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                          e.preventDefault();
-                          handleSubmit(e);
-                        }
-                      }}
-                    />
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-2 top-2 sm:right-3 sm:top-3 text-teal-medium hover:text-teal-dark hover:bg-transparent"
-                            onClick={() => setShowSuggestions(!showSuggestions)}
-                          >
-                            <HelpCircle size={20} />
-                            <span className="sr-only">ഉദാഹരണ കാണിക്കുക</span>
-                          </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="font-ml-ttrevathi">ഉദാഹരണ ചോദ്യങ്ങൾ</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+              <div className="border-t border-teal-lightest">
+                <form onSubmit={handleSubmit} className="p-2 sm:p-4">
+                  <div className="flex space-x-2">
+                    <div className="relative flex-1">
+                      <Textarea
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="നിങ്ങളുടെ ചോദ്യം ഇവിടെ ടൈപ്പ് ചെയ്യുക..."
+                        className="flex-1 resize-none text-base sm:text-lg p-3 pr-10 sm:p-4 sm:pr-12 rounded-2xl min-h-[60px] max-h-[120px] sm:min-h-[80px] border-teal-light focus-visible:ring-teal-medium font-ml-ttrevathi"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            handleSubmit(e);
+                          }
+                        }}
+                      />
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-2 top-2 sm:right-3 sm:top-3 text-teal-medium hover:text-teal-dark hover:bg-transparent"
+                              onClick={() =>
+                                setShowSuggestions(!showSuggestions)
+                              }
+                            >
+                              <HelpCircle size={20} />
+                              <span className="sr-only">ഉദാഹരണ കാണിക്കുക</span>
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="font-ml-ttrevathi">
+                              ഉദാഹരണ ചോദ്യങ്ങൾ
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                    <Button
+                      type="submit"
+                      size="icon"
+                      className="h-10 w-10 sm:h-12 sm:w-12 aspect-square rounded-full bg-teal-dark hover:bg-teal-darkest self-end p-2 sm:p-3 shadow-md transition-all duration-300 hover:shadow-lg"
+                      disabled={isLoading || !input.trim() || !sessionId}
+                    >
+                      <Send size={20} />
+                      <span className="sr-only">അയയ്ക്കുക</span>
+                    </Button>
                   </div>
-                  <Button
-                    type="submit"
-                    size="icon"
-                    className="h-10 w-10 sm:h-12 sm:w-12 aspect-square rounded-full bg-teal-dark hover:bg-teal-darkest self-end p-2 sm:p-3 shadow-md transition-all duration-300 hover:shadow-lg"
-                    disabled={isLoading || !input.trim() || !sessionId}
-                  >
-                    <Send size={20} />
-                    <span className="sr-only">അയയ്ക്കുക</span>
-                  </Button>
-                </div>
 
-                {showSuggestions && messages.length > 0 && (
-                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                    {malayalamExamples.slice(3, 6).map((example, index) => (
-                      <Button
-                        key={index}
-                        type="button"
-                        variant="outline"
-                        className="text-sm p-2 h-auto rounded-xl border-teal-light hover:bg-teal-light/10 font-ml-ttrevathi"
-                        onClick={() => handleSuggestionClick(example)}
-                      >
-                        {example}
-                      </Button>
-                    ))}
-                  </div>
-                )}
-              </form>
+                  {showSuggestions && messages.length > 0 && (
+                    <div className="mt-4 max-h-[150px] overflow-y-auto">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                        {malayalamExamples.map((example, index) => (
+                          <Button
+                            key={index}
+                            type="button"
+                            variant="outline"
+                            className="text-sm p-2 h-auto rounded-xl border-teal-light hover:bg-teal-light/10 font-ml-ttrevathi"
+                            onClick={() => handleSuggestionClick(example)}
+                          >
+                            {example}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </form>
+              </div>
             </div>
           </Card>
         )}
       </div>
+      hall everyann
     </main>
   );
 }

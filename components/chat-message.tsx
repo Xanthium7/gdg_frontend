@@ -58,7 +58,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}
+      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 w-full`}
     >
       <div
         className={`flex gap-3 max-w-[85%] ${
@@ -84,7 +84,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
         <div
           className={`
-          py-4 px-6 rounded-3xl bubble-shadow
+          py-4 px-6 rounded-3xl bubble-shadow overflow-hidden
           ${
             isUser
               ? "bg-teal-dark text-white rounded-tr-none"
@@ -94,7 +94,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         `}
         >
           {/* Removed dir attribute and text-right class */}
-          <p className="text-lg whitespace-pre-wrap">{message.content}</p>
+          <p className="text-lg whitespace-pre-wrap break-words">
+            {message.content}
+          </p>
 
           {/* Copy button for assistant messages */}
           {!isUser && (

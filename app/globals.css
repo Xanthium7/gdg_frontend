@@ -38,9 +38,14 @@
   * {
     @apply border-border;
   }
-  body {
+    body {
     @apply bg-teal-lightest text-teal-darkest;
     font-feature-settings: "rlig" 1, "calt" 1;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    max-height: 100vh; /* Prevent body from growing beyond viewport */
+    
   }
 
   /* Custom scrollbar for better visibility */
@@ -83,6 +88,32 @@
     box-shadow: 0 10px 25px -5px rgba(0, 128, 128, 0.1), 
                 0 8px 10px -6px rgba(0, 128, 128, 0.1);
   }
+  
+  /* Add constraint for suggestion area to prevent footer growth */
+  .suggestion-container {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease;
+  }
+  
+  /* Ensure the chat container maintains proper proportions */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Use viewport height instead of just 100% */
+    max-height: 100vh; /* Add max-height constraint */
+    overflow: hidden; /* Prevent any overflow outside the container */
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .chat-input-area {
+    flex-shrink: 0;
+  }
 }
 
 @keyframes float {
@@ -98,5 +129,19 @@
 .font-ml-ttrevathi {
   line-height: 1.6;
   letter-spacing: 0.01em;
+}
+
+/* Add scrollbar styling for suggestions area */
+.suggestion-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.suggestion-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.suggestion-container::-webkit-scrollbar-thumb {
+  background-color: #80d9d9;
+  border-radius: 10px;
 }
 
