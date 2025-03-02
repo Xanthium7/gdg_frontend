@@ -108,7 +108,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen overflow-y-hidden flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white">
+    <main className="flex min-h-screen flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white">
       <div className="w-full max-w-5xl mx-auto flex flex-col h-screen">
         <WelcomeHeader />
 
@@ -214,7 +214,8 @@ export default function Home() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="border-t border-teal-lightest">
+              {/* Fixed height footer container */}
+              <div className="border-t border-teal-lightest flex-shrink-0">
                 <form onSubmit={handleSubmit} className="p-2 sm:p-4">
                   <div className="flex space-x-2">
                     <div className="relative flex-1">
@@ -265,8 +266,9 @@ export default function Home() {
                     </Button>
                   </div>
 
+                  {/* Add fixed height container with overflow for suggestions */}
                   {showSuggestions && messages.length > 0 && (
-                    <div className="mt-4 max-h-[150px] overflow-y-auto">
+                    <div className="mt-4 suggestion-container">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {malayalamExamples.map((example, index) => (
                           <Button
@@ -288,7 +290,6 @@ export default function Home() {
           </Card>
         )}
       </div>
-      hall everyann
     </main>
   );
 }
