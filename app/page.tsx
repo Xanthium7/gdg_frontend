@@ -24,7 +24,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessionError, setSessionError] = useState<string | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  // Remove the messagesEndRef since we're not using auto-scroll anymore
   const [showSuggestions, setShowSuggestions] = useState(true);
 
   // Initialize chat session when component mounts
@@ -46,13 +46,7 @@ export default function Home() {
     }
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // Remove the scrollToBottom function and the useEffect that calls it
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -211,7 +205,7 @@ export default function Home() {
                     )}
                   </>
                 )}
-                <div ref={messagesEndRef} />
+                {/* Remove the messagesEndRef div */}
               </div>
 
               {/* Fixed height footer container */}
