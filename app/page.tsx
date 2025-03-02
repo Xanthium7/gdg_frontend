@@ -108,8 +108,8 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white">
-      <div className="w-full max-w-5xl mx-auto flex flex-col h-screen">
+    <main className="flex flex-col items-center p-2 sm:p-4 md:p-8 bg-gradient-to-b from-teal-lightest to-white h-screen max-h-screen overflow-hidden">
+      <div className="w-full max-w-5xl mx-auto flex flex-col h-full max-h-full overflow-hidden">
         <WelcomeHeader />
 
         {sessionError ? (
@@ -140,7 +140,7 @@ export default function Home() {
             </Button>
           </div>
         ) : (
-          <Card className="flex-1 overflow-hidden mb-4 shadow-xl border-teal-light bg-white rounded-3xl bubble-shadow">
+          <Card className="flex-1 overflow-hidden mb-0 shadow-xl border-teal-light bg-white rounded-3xl bubble-shadow">
             <div className="h-full flex flex-col overflow-hidden">
               <div className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-6">
                 {messages.length === 0 ? (
@@ -268,7 +268,7 @@ export default function Home() {
 
                   {/* Add fixed height container with overflow for suggestions */}
                   {showSuggestions && messages.length > 0 && (
-                    <div className="mt-4 suggestion-container">
+                    <div className="mt-4 max-h-[150px] overflow-y-auto suggestion-container">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {malayalamExamples.map((example, index) => (
                           <Button

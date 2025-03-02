@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ml">
+    <html lang="ml" className="h-full overflow-hidden">
       <head>
         <meta
           name="viewport"
@@ -31,7 +31,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${malayalamFont.variable}  antialiased`}
+        className={`${inter.variable} ${malayalamFont.variable} antialiased h-full max-h-full overflow-hidden`}
       >
         {children}
       </body>

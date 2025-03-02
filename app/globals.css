@@ -38,14 +38,23 @@
   * {
     @apply border-border;
   }
-    body {
+
+  html, body {
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Critical fix to prevent body scroll */
+  }
+
+  body {
     @apply bg-teal-lightest text-teal-darkest;
     font-feature-settings: "rlig" 1, "calt" 1;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     max-height: 100vh; /* Prevent body from growing beyond viewport */
-    
+    overflow: hidden;
   }
 
   /* Custom scrollbar for better visibility */
@@ -91,9 +100,11 @@
   
   /* Add constraint for suggestion area to prevent footer growth */
   .suggestion-container {
-    max-height: 150px;
+    max-height: 150px !important; /* Force maximum height */
     overflow-y: auto;
     transition: max-height 0.3s ease;
+    position: relative; /* Ensure position context */
+    z-index: 10; /* Keep above other content */
   }
   
   /* Ensure the chat container maintains proper proportions */
@@ -113,6 +124,28 @@
   
   .chat-input-area {
     flex-shrink: 0;
+  }
+
+  /* Ensure main takes full height but doesn't overflow */
+  main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    position: relative; /* Create position context */
+  }
+  
+  /* Fix for container heights */
+  .h-screen {
+    height: 100vh !important;
+    max-height: 100vh !important;
+  }
+  
+  /* Ensure no content appears outside containers */
+  #__next {
+    height: 100%;
+    overflow: hidden;
   }
 }
 
@@ -143,5 +176,21 @@
 .suggestion-container::-webkit-scrollbar-thumb {
   background-color: #80d9d9;
   border-radius: 10px;
+}
+
+/* Fix for any absolutely positioned elements that might cause issues */
+.absolute {
+  position: absolute !important;
+}
+
+/* Override any potential causes of overflow */
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+/* Additional control to prevent expansion */
+body > div {
+  height: 100%;
+  overflow: hidden;
 }
 
