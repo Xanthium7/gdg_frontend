@@ -139,7 +139,7 @@ export default function Home() {
               <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-7 bg-gradient-to-b from-white to-teal-lightest/20">
                 {messages.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center p-4 sm:p-8">
-                    <div className="rounded-full bg-teal-light/20 p-8 mb-8  shadow-lg">
+                    <div className="rounded-full bg-teal-light/20 p-8 mb-12  shadow-lg">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="72"
