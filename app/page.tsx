@@ -166,7 +166,7 @@ export default function Home() {
 
                     {showSuggestions && (
                       <div className="grid gap-4 mt-6 w-full max-w-lg">
-                        <h3 className="text-lg font-medium text-teal-dark font-ml-ttrevathi">
+                        <h3 className="text-lg font-bold text-teal-dark font-ml-ttrevathi">
                           ഇതുപോലെ ചോദിക്കാം:
                         </h3>
                         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
